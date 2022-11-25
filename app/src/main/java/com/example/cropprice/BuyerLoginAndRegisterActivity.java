@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.cropprice.Adapters.BuyerLoginAndRegisterAdapter;
 import com.example.cropprice.Adapters.SellerLoginAndRegisterAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -18,7 +19,7 @@ public class BuyerLoginAndRegisterActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
-    SellerLoginAndRegisterAdapter adapter;
+    BuyerLoginAndRegisterAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class BuyerLoginAndRegisterActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("Register"));
 
-        adapter = new SellerLoginAndRegisterAdapter(getSupportFragmentManager(), getLifecycle());
+        adapter = new BuyerLoginAndRegisterAdapter(getSupportFragmentManager(), getLifecycle());
         viewPager2.setAdapter(adapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -62,7 +63,6 @@ public class BuyerLoginAndRegisterActivity extends AppCompatActivity {
 
         String loadActivity = getIntent().getStringExtra("loadActivity");
         if(loadActivity !=null){
-            Toast.makeText(this, "setCurrentItem", Toast.LENGTH_SHORT).show();
             viewPager2.setCurrentItem(1);
         }
 

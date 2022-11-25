@@ -3,13 +3,20 @@ package com.example.cropprice.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -17,19 +24,24 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.cropprice.Adapters.HomeCategoryAdapter;
 import com.example.cropprice.Adapters.HomeNewCropAdapter;
+import com.example.cropprice.CategoryWiseCropActivity;
 import com.example.cropprice.ChooserActivity;
 import com.example.cropprice.MainActivity;
 import com.example.cropprice.Modals.HomeCategoryModel;
 import com.example.cropprice.Modals.HomeCropModel;
 import com.example.cropprice.R;
+import com.example.cropprice.SingleCropActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView homeCategoryRcView;
-    RecyclerView homeNewCropRcView;
+    Toolbar toolbar;
+    TextView tvViewAll;
+    RecyclerView homeCategoryRcView, homeNewCropRcView;
     ArrayList<HomeCategoryModel> list = new ArrayList<>();
     ArrayList<HomeCropModel> newCropList = new ArrayList<>();
     ShimmerFrameLayout shimmerLayout, shimmerLayoutCategory;
@@ -42,7 +54,13 @@ public class HomeFragment extends Fragment {
         homeCategoryRcView = view.findViewById(R.id.homeCategoryRcView);
         homeNewCropRcView = view.findViewById(R.id.homeNewCropRcView);
         shimmerLayout = view.findViewById(R.id.shimmerLayout);
+        tvViewAll = view.findViewById(R.id.tvViewAll);
         shimmerLayoutCategory = view.findViewById(R.id.shimmerLayoutCategory);
+        toolbar = getActivity().findViewById(R.id.toolbar);
+
+        // set the toolbar
+        TextView titleToolbar = toolbar.findViewById(R.id.titleToolbar);
+        titleToolbar.setText("Crop Price");
 
         // image slider work
         ArrayList<SlideModel> imageList = new ArrayList<>();
@@ -64,7 +82,6 @@ public class HomeFragment extends Fragment {
         homeCategoryRcView.setLayoutManager(layoutManager);
 
         // new crops work
-        // category work
         newCropList.add(new HomeCropModel("https://cdn-icons-png.flaticon.com/512/2899/2899899.png", "Crop 1", "1500", "THis is a description", "20"));
         newCropList.add(new HomeCropModel("https://cdn-icons-png.flaticon.com/512/2899/2899899.png", "Crop 2", "1600", "THis is a description", "20"));
         newCropList.add(new HomeCropModel("https://cdn-icons-png.flaticon.com/512/2899/2899899.png", "Crop 3", "1700", "THis is a description Long Decription ", "20"));
@@ -79,13 +96,33 @@ public class HomeFragment extends Fragment {
         homeNewCropRcView.setLayoutManager(newCropLayoutManager);
         homeNewCropRcView.setNestedScrollingEnabled(false);
 
+        tvViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new ShopFragment()).commit();
+            }
+        });
+
         // shimmerLayout work
         shimmerLayout.startShimmer();
         shimmerLayoutCategory.startShimmer();
+        shimmerLayoutCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), CategoryWiseCropActivity.class));
+            }
+        });
 //        shimmerLayout.stopShimmer();
 //        shimmerLayout.setVisibility(View.GONE);
 //        homeNewCropRcView.setVisibility(View.VISIBLE);
 
+        shimmerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().startActivity(new Intent(getContext(), SingleCropActivity.class));
+            }
+        });
+        
         return view;
     }
 }

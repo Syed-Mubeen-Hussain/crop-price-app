@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ShopFragment">
+    android:orientation="vertical"
+    tools:context=".CategoryWiseCropActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,8 +23,10 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:id="@+id/shimmerLayout"
                 >
                 <LinearLayout
@@ -35,12 +42,16 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/shopCropRcView"
+                android:id="@+id/categoryWiseCropRcView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" />
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

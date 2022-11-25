@@ -9,24 +9,47 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cropprice.R;
+import com.example.cropprice.SellerEditProfileActivity;
 import com.example.cropprice.SellerHomeActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SellerLoginFragment extends Fragment {
+
     Button btnSellerLogin;
+    String emailRegex = "^[a-z0-9_]+@[a-z0-9.-]+\\.[a-z]{3}$";
+    EditText etSellerLoginEmail, etSellerLoginPassword;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seller_login, container, false);
+        etSellerLoginEmail = view.findViewById(R.id.etSellerLoginEmail);
+        etSellerLoginPassword = view.findViewById(R.id.etSellerLoginPassword);
         btnSellerLogin = view.findViewById(R.id.btnSellerLogin);
+
         btnSellerLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                errorMessage();
-                getActivity().startActivity(new Intent(getContext(), SellerHomeActivity.class));
+
+                String email = etSellerLoginEmail.getText().toString();
+                String password = etSellerLoginPassword.getText().toString();
+
+               if (email.trim().equals("")) {
+                   etSellerLoginEmail.setError("Email is required");
+                } else if (email.trim().equals("") || !email.matches(emailRegex)) {
+                   etSellerLoginEmail.setError("Email format is invalid");
+                } else if (password.trim().equals("")) {
+                   etSellerLoginPassword.setError("Password is required");
+                } else {
+                   getActivity().startActivity(new Intent(getContext(), SellerHomeActivity.class));
+                   getActivity().finish();
+                }
+
             }
         });
         return view;

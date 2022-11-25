@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Fragments.SearchFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/singleCropEnterBid"
+            android:layout_width="wrap_content"
+            android:background="@drawable/searchinput"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:inputType="textPersonName"
+            android:hint="Search Crop Here ..." />
+
+        <ImageButton
+            android:id="@+id/singleCropSubmitBid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/search_btn"
+            android:backgroundTint="#FFB856"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:padding="10dp"
+            android:src="@drawable/ic_search"
+            android:textColor="@color/black"
+            android:textSize="45sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/progressLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FDEEEE"
+        android:gravity="center"
+        >
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/black"
+            />
+    </LinearLayout>
+
+</LinearLayout>

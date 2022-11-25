@@ -109,7 +109,7 @@
                 android:backgroundTint="#FFB856"
                 android:drawableRight="@drawable/ic_baseline_call_24"
                 android:ems="10"
-                android:inputType="phone"
+                android:inputType="number"
                 android:textColor="#8c8c8c"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

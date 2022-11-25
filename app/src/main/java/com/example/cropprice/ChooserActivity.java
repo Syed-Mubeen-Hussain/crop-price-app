@@ -66,6 +66,7 @@ public class ChooserActivity extends AppCompatActivity {
                             pDialog.dismiss();
                             Intent intent = new Intent(ChooserActivity.this, BuyerLoginAndRegisterActivity.class);
                             startActivity(intent);
+                            finish();
                         } catch (Exception e) {
                             Toast.makeText(ChooserActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -76,7 +77,6 @@ public class ChooserActivity extends AppCompatActivity {
         });
 
     }
-
     @Override
     public void onBackPressed() {
         exitDialog();
@@ -95,4 +95,5 @@ public class ChooserActivity extends AppCompatActivity {
             }
         }).show();
     }
+
 }

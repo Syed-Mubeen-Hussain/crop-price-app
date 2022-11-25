@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,9 @@ public class BuyerRegisterFragment extends Fragment {
     ImageView imgBuyerRegister;
     TextView tvUploadBuyerRegister;
     Button btnBuyerRegister;
+    EditText etBuyerRegisterName, etBuyerRegisterPhone, etBuyerLoginEmail, etBuyerLoginPassword;
+    String contactRegex = "^\\d{11}$";
+    String emailRegex = "^[a-z0-9_]+@[a-z0-9.-]+\\.[a-z]{3}$";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,16 +58,41 @@ public class BuyerRegisterFragment extends Fragment {
 
         imgBuyerRegister = view.findViewById(R.id.imgBuyerRegister);
         tvUploadBuyerRegister = view.findViewById(R.id.tvUploadBuyerRegister);
+        etBuyerRegisterName = view.findViewById(R.id.etBuyerRegisterName);
+        etBuyerRegisterPhone = view.findViewById(R.id.etBuyerRegisterPhone);
+        etBuyerLoginEmail = view.findViewById(R.id.etBuyerLoginEmail);
+        etBuyerLoginPassword = view.findViewById(R.id.etBuyerLoginPassword);
         btnBuyerRegister = view.findViewById(R.id.btnBuyerRegister);
         btnBuyerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                errorMessage();
-//                SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-//                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-//                pDialog.setTitleText("Loading");
-//                pDialog.setCancelable(true);
-//                pDialog.show();
+
+                String name = etBuyerRegisterName.getText().toString();
+                String contact = etBuyerRegisterPhone.getText().toString();
+                String email = etBuyerLoginEmail.getText().toString();
+                String password = etBuyerLoginPassword.getText().toString();
+                String loadActivity = getActivity().getIntent().getStringExtra("loadActivity");
+                if (name.trim().equals("")) {
+                    etBuyerRegisterName.setError("Name is required");
+                } else if (contact.trim().equals("")) {
+                    etBuyerRegisterPhone.setError("Contact is required");
+                } else if (contact.trim().equals("") || !contact.matches(contactRegex)) {
+                    etBuyerRegisterPhone.setError("Contact number like 03xxxxxxxxx");
+                } else if (email.trim().equals("")) {
+                    etBuyerLoginEmail.setError("Email is required");
+                } else if (email.trim().equals("") || !email.matches(emailRegex)) {
+                    etBuyerLoginEmail.setError("Email format is invalid");
+                } else if (password.trim().equals("")) {
+                    etBuyerLoginPassword.setError("Password is required");
+                } else if (loadActivity == null) {
+                    Toast.makeText(getContext(), "Please upload image", Toast.LENGTH_SHORT).show();
+                } else {
+                    SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading");
+                    pDialog.setCancelable(true);
+                    pDialog.show();
+                }
             }
         });
 

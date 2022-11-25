@@ -2,6 +2,7 @@ package com.example.cropprice;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -70,8 +71,7 @@ public class SellerLoginAndRegisterActivity extends AppCompatActivity {
         });
 
         String loadActivity = getIntent().getStringExtra("loadActivity");
-        if(loadActivity !=null){
-            Toast.makeText(this, "setCurrentItem", Toast.LENGTH_SHORT).show();
+        if (loadActivity != null) {
             viewPager2.setCurrentItem(1);
         }
 
@@ -82,10 +82,9 @@ public class SellerLoginAndRegisterActivity extends AppCompatActivity {
         if (requestCode == 101 && resultCode == RESULT_OK) {
             String imgSrc = data.getData().toString();
             Intent intent = new Intent(SellerLoginAndRegisterActivity.this, SellerLoginAndRegisterActivity.class);
-            intent.putExtra("loadActivity",imgSrc);
+            intent.putExtra("loadActivity", imgSrc);
             startActivity(intent);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

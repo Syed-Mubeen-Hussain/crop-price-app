@@ -24,11 +24,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cropprice.R;
+import com.example.cropprice.SellerEditProfileActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -43,8 +45,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class SellerRegisterFragment extends Fragment {
 
     ImageView imgSellerRegister;
+    EditText etSellerRegisterName, etSellerRegisterPhone, etSellerLoginEmail, etSellerLoginPassword;
     TextView tvUploadSellerRegister;
     Button btnSellerRegister;
+    String contactRegex = "^\\d{11}$";
+    String emailRegex = "^[a-z0-9_]+@[a-z0-9.-]+\\.[a-z]{3}$";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,15 +60,42 @@ public class SellerRegisterFragment extends Fragment {
         imgSellerRegister = view.findViewById(R.id.imgSellerRegister);
         tvUploadSellerRegister = view.findViewById(R.id.tvUploadSellerRegister);
         btnSellerRegister = view.findViewById(R.id.btnSellerRegister);
+        etSellerRegisterName = view.findViewById(R.id.etSellerRegisterName);
+        etSellerRegisterPhone = view.findViewById(R.id.etSellerRegisterPhone);
+        etSellerLoginEmail = view.findViewById(R.id.etSellerLoginEmail);
+        etSellerLoginPassword = view.findViewById(R.id.etSellerLoginPassword);
+
+
         btnSellerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                errorMessage();
-//                SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-//                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-//                pDialog.setTitleText("Loading");
-//                pDialog.setCancelable(true);
-//                pDialog.show();
+
+                String name = etSellerRegisterName.getText().toString();
+                String contact = etSellerRegisterPhone.getText().toString();
+                String email = etSellerLoginEmail.getText().toString();
+                String password = etSellerLoginPassword.getText().toString();
+                String loadActivity = getActivity().getIntent().getStringExtra("loadActivity");
+                if (name.trim().equals("")) {
+                    etSellerRegisterName.setError("Name is required");
+                } else if (contact.trim().equals("")) {
+                    etSellerRegisterPhone.setError("Contact is required");
+                } else if (contact.trim().equals("") || !contact.matches(contactRegex)) {
+                    etSellerRegisterPhone.setError("Contact number like 03xxxxxxxxx");
+                } else if (email.trim().equals("")) {
+                    etSellerLoginEmail.setError("Email is required");
+                } else if (email.trim().equals("") || !email.matches(emailRegex)) {
+                    etSellerLoginEmail.setError("Email format is invalid");
+                } else if (password.trim().equals("")) {
+                    etSellerLoginPassword.setError("Password is required");
+                } else if (loadActivity == null) {
+                    Toast.makeText(getContext(), "Please upload image", Toast.LENGTH_SHORT).show();
+                } else {
+                    SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading");
+                    pDialog.setCancelable(true);
+                    pDialog.show();
+                }
             }
         });
 
