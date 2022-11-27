@@ -17,7 +17,6 @@
             android:id="@+id/homeNewCropImage"
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_launcher_background" />
@@ -27,7 +26,7 @@
             android:layout_marginStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="3dp"
             android:fontFamily="@font/poppins_bold"
             android:includeFontPadding="false"
             android:text="Crop Name"
@@ -40,18 +39,18 @@
             android:id="@+id/homeNewCropDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             android:fontFamily="@font/poppins_semibold"
             android:includeFontPadding="false"
             android:text="Description"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/teal_200" />
+            android:layout_height="0.1dp"
+            android:background="#ACD5CF" />
 
         <LinearLayout
             android:layout_marginTop="5dp"

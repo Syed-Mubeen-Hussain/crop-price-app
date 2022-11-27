@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.cropprice.Modals.HomeCategoryModel;
 import com.example.cropprice.Modals.HomeCropModel;
 import com.example.cropprice.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,14 +39,14 @@ public class HomeNewCropAdapter extends RecyclerView.Adapter<HomeNewCropAdapter.
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         HomeCropModel model = list.get(position);
         holder.homeNewCropName.setText(model.getName());
-        if(model.getDescription().length() > 20){
-            holder.homeNewCropDescription.setText(model.getDescription().substring(0,20) + " ...");
+        if(model.getDescription().length() > 17){
+            holder.homeNewCropDescription.setText(model.getDescription().substring(0,17) + " ...");
         }else{
             holder.homeNewCropDescription.setText(model.getDescription());
         }
         holder.homeNewCropPrice.setText(model.getPrice());
         holder.homeNewCropBids.setText(model.getBids());
-        Glide.with(context).load(model.getImage()).into(holder.homeNewCropImage);
+        Picasso.get().load(model.getImage()).placeholder(R.drawable.progress_animation).into(holder.homeNewCropImage);
     }
 
     @Override

@@ -45,31 +45,29 @@ public class SellerHomeActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, new HomeFragment());
         transaction.commit();
-
+        
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.home:
-                        transaction.replace(R.id.container, new HomeFragment());
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
                         break;
                     case R.id.shop:
-                        transaction.replace(R.id.container, new ShopFragment());
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ShopFragment()).commit();
                         break;
                     case R.id.add:
-                        transaction.replace(R.id.container, new SellerAddFragment());
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SellerAddFragment()).commit();
                         break;
                     case R.id.search:
-                        transaction.replace(R.id.container, new SearchFragment());
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
                         break;
                     case R.id.profile:
-                        transaction.replace(R.id.container, new SellerProfileFragment());
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SellerProfileFragment()).commit();
                         break;
                 }
-                transaction.commit();
                 return true;
             }
         });

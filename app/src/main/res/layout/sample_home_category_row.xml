@@ -16,10 +16,7 @@
         <ImageView
             android:id="@+id/homeCategoryImage"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:padding="50dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_launcher_background" />
 
@@ -27,12 +24,14 @@
             android:id="@+id/homeCategoryName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
+            android:textColor="#1C1B1B"
             android:includeFontPadding="false"
             android:text="Category Name"
-            android:layout_marginBottom="5dp"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
 

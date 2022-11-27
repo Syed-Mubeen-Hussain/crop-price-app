@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.cropprice.Modals.HomeCategoryModel;
 import com.example.cropprice.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,8 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         HomeCategoryModel model = list.get(position);
         holder.homeCategoryName.setText(model.getName());
-        Glide.with(context).load(model.getImage()).into(holder.homeCategoryImage);
+        Picasso.get().load(model.getImage()).placeholder(R.drawable.progress_animation).into(holder.homeCategoryImage);
+//        Glide.with(holder.homeCategoryImage).load(model.getImage()).placeholder(R.drawable.loading).into(holder.homeCategoryImage);
     }
 
     @Override

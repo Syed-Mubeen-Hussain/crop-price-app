@@ -46,8 +46,11 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     // glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation 'com.squareup.picasso:picasso:2.8'
     // loading
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     // loading divs effect
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    // volley
+    implementation 'com.android.volley:volley:1.2.1'
 }
