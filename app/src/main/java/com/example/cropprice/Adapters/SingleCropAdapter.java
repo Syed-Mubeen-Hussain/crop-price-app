@@ -1,5 +1,6 @@
 package com.example.cropprice.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.cropprice.Modals.HomeCategoryModel;
 import com.example.cropprice.Modals.SingleCropModel;
 import com.example.cropprice.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,13 +37,14 @@ public class SingleCropAdapter extends RecyclerView.Adapter<SingleCropAdapter.vi
         return new viewHolder(view);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         SingleCropModel model = list.get(position);
         holder.bidderName.setText(model.getBidderName());
         holder.bidderPrice.setText(model.getBidderPrice());
         holder.bidderTime.setText(model.getBidderTime());
-        Glide.with(holder.bidderImage.getContext()).load(model.getBidderImage()).into(holder.bidderImage);
+        Glide.with(holder.bidderImage).load(model.getBidderImage()).placeholder(R.drawable.progress_animation).into(holder.bidderImage);
     }
 
     @Override

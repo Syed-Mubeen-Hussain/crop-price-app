@@ -1,6 +1,8 @@
 package com.example.cropprice.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +40,19 @@ public class HomeNewCropAdapter extends RecyclerView.Adapter<HomeNewCropAdapter.
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         HomeCropModel model = list.get(position);
-        holder.homeNewCropName.setText(model.getName());
+        if(model.getName().length() > 16){
+            holder.homeNewCropName.setText(model.getName().substring(0,16) + " ...");
+        }else{
+            holder.homeNewCropName.setText(model.getName());
+        }
         if(model.getDescription().length() > 17){
             holder.homeNewCropDescription.setText(model.getDescription().substring(0,17) + " ...");
         }else{
             holder.homeNewCropDescription.setText(model.getDescription());
         }
-        holder.homeNewCropPrice.setText(model.getPrice());
+        holder.homeNewCropPrice.setText(model.getEnding_time());
         holder.homeNewCropBids.setText(model.getBids());
-        Picasso.get().load(model.getImage()).placeholder(R.drawable.progress_animation).into(holder.homeNewCropImage);
+        Glide.with(holder.homeNewCropImage).load(model.getImage()).placeholder(R.drawable.progress_animation).into(holder.homeNewCropImage);
     }
 
     @Override

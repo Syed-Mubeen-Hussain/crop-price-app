@@ -30,6 +30,7 @@ import com.example.cropprice.Adapters.HomeCategoryAdapter;
 import com.example.cropprice.Adapters.HomeNewCropAdapter;
 import com.example.cropprice.CategoryWiseCropActivity;
 
+import com.example.cropprice.Classes.RecyclerItemClickListener;
 import com.example.cropprice.Modals.HomeCategoryModel;
 import com.example.cropprice.Modals.HomeCropModel;
 import com.example.cropprice.R;
@@ -82,10 +83,26 @@ public class HomeFragment extends Fragment {
         imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP);
 
         // category work
-        HomeCategoryAdapter adapter = new HomeCategoryAdapter(categoryList, getContext());
+        HomeCategoryAdapter adapter = new HomeCategoryAdapter(categoryList, getActivity().getApplicationContext());
         homeCategoryRcView.setAdapter(adapter);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
         homeCategoryRcView.setLayoutManager(layoutManager);
+        homeCategoryRcView.addOnItemTouchListener(new RecyclerItemClickListener
+                (getActivity().getApplicationContext(), homeCategoryRcView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        HomeCategoryModel model = categoryList.get(position);
+                        Intent intent = new Intent(getActivity().getApplicationContext(), CategoryWiseCropActivity.class);
+                        intent.putExtra("categoryId", model.getId());
+                        intent.putExtra("categoryName", model.getName());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                }
+                ));
 
         StringRequest request = new StringRequest(Request.Method.POST, categoryUrl, new Response.Listener<String>() {
             @Override
@@ -100,10 +117,11 @@ public class HomeFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
 
+                            String id = object.getString("id");
                             String name = object.getString("name");
                             String image = object.getString("image");
 
-                            HomeCategoryModel category = new HomeCategoryModel(image, name);
+                            HomeCategoryModel category = new HomeCategoryModel(id, image, name);
                             categoryList.add(category);
                             adapter.notifyDataSetChanged();
 
@@ -115,14 +133,14 @@ public class HomeFragment extends Fragment {
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error is : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Nullable
@@ -136,15 +154,36 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(request);
 
         // new crop work
-        HomeNewCropAdapter newCropAdapter = new HomeNewCropAdapter(newCropList, getContext());
+        HomeNewCropAdapter newCropAdapter = new HomeNewCropAdapter(newCropList, getActivity().getApplicationContext());
         homeNewCropRcView.setAdapter(newCropAdapter);
-        GridLayoutManager newCropLayoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager newCropLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         homeNewCropRcView.setLayoutManager(newCropLayoutManager);
         homeNewCropRcView.setNestedScrollingEnabled(false);
+        homeNewCropRcView.addOnItemTouchListener(new RecyclerItemClickListener
+                (getActivity().getApplicationContext(), homeNewCropRcView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        HomeCropModel model = newCropList.get(position);
+                        Intent intent = new Intent(getActivity().getApplicationContext(), SingleCropActivity.class);
+                        intent.putExtra("image", model.getImage());
+                        intent.putExtra("name", model.getName());
+                        intent.putExtra("qty", model.getQty());
+                        intent.putExtra("bid_count", model.getBids());
+                        intent.putExtra("price", model.getPrice());
+                        intent.putExtra("description", model.getDescription());
+                        intent.putExtra("ending_time", model.getEnding_time());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                }
+                ));
 
         StringRequest newCropRequest = new StringRequest(Request.Method.POST, newCropUrl, new Response.Listener<String>() {
             @Override
@@ -162,14 +201,15 @@ public class HomeFragment extends Fragment {
                             String name = object.getString("name");
                             String image = object.getString("image");
                             String price = object.getString("price");
+                            String qty = object.getString("qty");
                             String description = object.getString("description");
+                            String ending_time = object.getString("ending_time");
                             String bid_count = object.getString("bid_count");
 
-                            HomeCropModel crop = new HomeCropModel(image, name, price, description, bid_count);
+                            HomeCropModel crop = new HomeCropModel(image, name, price, description, bid_count, qty, ending_time);
                             newCropList.add(crop);
-                            newCropAdapter.notifyDataSetChanged();
 
-                            Log.d("crop", crop.getImage());
+                            newCropAdapter.notifyDataSetChanged();
                         }
                         shimmerLayout.stopShimmer();
                         shimmerLayout.setVisibility(View.GONE);
@@ -177,14 +217,14 @@ public class HomeFragment extends Fragment {
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error is : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Nullable
@@ -198,9 +238,8 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        RequestQueue newCropRequestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue newCropRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         newCropRequestQueue.add(newCropRequest);
-
 
 
         tvViewAll.setOnClickListener(new View.OnClickListener() {

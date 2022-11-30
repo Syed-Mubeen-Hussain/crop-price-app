@@ -88,9 +88,9 @@ public class SellerRegisterFragment extends Fragment {
                 } else if (password.trim().equals("")) {
                     etSellerLoginPassword.setError("Password is required");
                 } else if (loadActivity == null) {
-                    Toast.makeText(getContext(), "Please upload image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Please upload image", Toast.LENGTH_SHORT).show();
                 } else {
-                    SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                    SweetAlertDialog pDialog = new SweetAlertDialog(getActivity().getApplicationContext(), SweetAlertDialog.PROGRESS_TYPE);
                     pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                     pDialog.setTitleText("Loading");
                     pDialog.setCancelable(true);
@@ -108,7 +108,7 @@ public class SellerRegisterFragment extends Fragment {
         imgSellerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dexter.withContext(getContext())
+                Dexter.withContext(getActivity().getApplicationContext())
                         .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                         .withListener(new PermissionListener() {
                             @Override
@@ -134,7 +134,7 @@ public class SellerRegisterFragment extends Fragment {
         tvUploadSellerRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dexter.withContext(getContext())
+                Dexter.withContext(getActivity().getApplicationContext())
                         .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                         .withListener(new PermissionListener() {
                             @Override
@@ -161,6 +161,6 @@ public class SellerRegisterFragment extends Fragment {
     }
 
     public void errorMessage() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
+        new SweetAlertDialog(getActivity().getApplicationContext(), SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
     }
 }

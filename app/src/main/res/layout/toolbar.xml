@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:elevation="0dp"
+    android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:titleTextAppearance="@color/black">
 
@@ -27,14 +27,5 @@
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-
-            android:layout_marginEnd="20dp"
-            app:srcCompat="@drawable/search" />
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

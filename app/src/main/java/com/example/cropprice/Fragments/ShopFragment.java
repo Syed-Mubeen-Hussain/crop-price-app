@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,8 @@ public class ShopFragment extends Fragment {
 
     Toolbar toolbar;
     RecyclerView shopCropRcView;
+    NestedScrollView shopScrollView;
+    LinearLayout shopNoCropFound;
     ArrayList<HomeCropModel> newCropList = new ArrayList<>();
     ShimmerFrameLayout shimmerLayout;
     String newCropUrl = "http://crop-price.infinityfreeapp.com/seller.php?shopAuctions=true";
@@ -66,6 +70,8 @@ public class ShopFragment extends Fragment {
 
         shopCropRcView = view.findViewById(R.id.shopCropRcView);
         shimmerLayout = view.findViewById(R.id.shimmerLayout);
+        shopScrollView = view.findViewById(R.id.shopScrollView);
+        shopNoCropFound = view.findViewById(R.id.shopNoCropFound);
 
         // shimmer start
         shimmerLayout.startShimmer();
@@ -76,9 +82,9 @@ public class ShopFragment extends Fragment {
         titleToolbar.setText("Shop");
 
         // new crops work
-        HomeNewCropAdapter newCropAdapter = new HomeNewCropAdapter(newCropList, getContext());
+        HomeNewCropAdapter newCropAdapter = new HomeNewCropAdapter(newCropList, getActivity().getApplicationContext());
         shopCropRcView.setAdapter(newCropAdapter);
-        GridLayoutManager newCropLayoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager newCropLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         shopCropRcView.setLayoutManager(newCropLayoutManager);
         shopCropRcView.setNestedScrollingEnabled(false);
 
@@ -92,35 +98,40 @@ public class ShopFragment extends Fragment {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     if (success.equals("1")) {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        if(jsonArray.length() > 0) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONObject(i);
 
-                            String name = object.getString("name");
-                            String image = object.getString("image");
-                            String price = object.getString("price");
-                            String description = object.getString("description");
-                            String bid_count = object.getString("bid_count");
+                                String name = object.getString("name");
+                                String image = object.getString("image");
+                                String price = object.getString("price");
+                                String qty = object.getString("qty");
+                                String description = object.getString("description");
+                                String ending_time = object.getString("ending_time");
+                                String bid_count = object.getString("bid_count");
 
-                            HomeCropModel crop = new HomeCropModel(image, name, price, description, bid_count);
-                            newCropList.add(crop);
-                            newCropAdapter.notifyDataSetChanged();
-
-                            Log.d("crop", crop.getImage());
+                                HomeCropModel crop = new HomeCropModel(image, name, price, description, bid_count, qty, ending_time);
+                                newCropList.add(crop);
+                                newCropAdapter.notifyDataSetChanged();
+                            }
+                            shimmerLayout.stopShimmer();
+                            shimmerLayout.setVisibility(View.GONE);
+                            shopCropRcView.setVisibility(View.VISIBLE);
+                        }else{
+                            shopNoCropFound.setVisibility(View.VISIBLE);
+                            shopScrollView.setVisibility(View.GONE);
                         }
-                        shimmerLayout.stopShimmer();
-                        shimmerLayout.setVisibility(View.GONE);
-                        shopCropRcView.setVisibility(View.VISIBLE);
                     }
 
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error is : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Nullable
@@ -134,7 +145,7 @@ public class ShopFragment extends Fragment {
             }
         };
 
-        RequestQueue newCropRequestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue newCropRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         newCropRequestQueue.add(newCropRequest);
 
         return view;

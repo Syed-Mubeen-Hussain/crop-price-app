@@ -38,14 +38,14 @@ public class SellerProfileFragment extends Fragment {
         selleEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(getContext(), SellerEditProfileActivity.class));
+               startActivity(new Intent(getActivity().getApplicationContext(), SellerEditProfileActivity.class));
             }
         });
 
         sellerProfileLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Logout", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Logout", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

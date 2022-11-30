@@ -1,7 +1,7 @@
 package com.example.cropprice.Modals;
 
 public class HomeCropModel {
-    String image, name, price, description, bids;
+    String image, name, price, description, bids, ending_time, qty;
 
     public HomeCropModel(String image, String name, String price, String description, String bids) {
         this.image = image;
@@ -9,6 +9,32 @@ public class HomeCropModel {
         this.price = price;
         this.description = description;
         this.bids = bids;
+    }
+
+    public HomeCropModel(String image, String name, String price, String description, String bids, String qty, String ending_time) {
+        this.image = image;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.bids = bids;
+        this.ending_time = ending_time;
+        this.qty = qty;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getEnding_time() {
+        return ending_time;
+    }
+
+    public void setEnding_time(String ending_time) {
+        this.ending_time = ending_time;
     }
 
     public String getImage() {

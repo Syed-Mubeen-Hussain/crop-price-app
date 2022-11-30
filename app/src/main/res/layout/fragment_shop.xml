@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     android:paddingBottom="10dp"
     android:paddingTop="10dp"
+    android:orientation="vertical"
     tools:context=".Fragments.ShopFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/shopScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,4 +47,26 @@
                 android:layout_marginEnd="10dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/shopNoCropFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Crops Found"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:textSize="35dp"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>

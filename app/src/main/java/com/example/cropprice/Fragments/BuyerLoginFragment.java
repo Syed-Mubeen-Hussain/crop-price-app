@@ -44,7 +44,7 @@ public class BuyerLoginFragment extends Fragment {
                 } else if (password.trim().equals("")) {
                     etBuyerLoginPassword.setError("Password is required");
                 } else {
-                    getActivity().startActivity(new Intent(getContext(), SellerHomeActivity.class));
+                    getActivity().startActivity(new Intent(getActivity().getApplicationContext(), SellerHomeActivity.class));
                     getActivity().finish();
                 }
             }
@@ -54,7 +54,7 @@ public class BuyerLoginFragment extends Fragment {
     }
 
     public void errorMessage() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
+        new SweetAlertDialog(getActivity().getApplicationContext(), SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
     }
 
 }

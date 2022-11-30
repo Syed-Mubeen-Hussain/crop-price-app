@@ -4,65 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="20dp"
     android:orientation="vertical"
     tools:context=".ContactActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/poppins_bold"
-        android:includeFontPadding="false"
-        android:text="Contact Form"
-        android:textColor="@color/black"
-        android:textSize="45sp" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/contactName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/searchinput"
-        android:hint="Enter Name"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/contactSubject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/searchinput"
-        android:hint="Enter Subject"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <EditText
-        android:id="@+id/contactMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/searchinput"
-        android:hint="Enter Message"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:padding="10dp" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/contactButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#FFB856"
-        android:fontFamily="@font/poppins_bold"
-        android:includeFontPadding="false"
-        android:padding="15dp"
-        android:text="Send"
-        android:textColor="@color/black"
-        app:cornerRadius="20dp" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/contact1" />
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/contactName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/searchinput"
+                android:hint="Enter Name"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/contactSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/searchinput"
+                android:hint="Enter Subject"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/contactMessage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/searchinput"
+                android:gravity="top"
+                android:hint="Enter Message"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/contactButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#FFB856"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:padding="15dp"
+                android:text="Send"
+                android:textColor="@color/black"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

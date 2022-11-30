@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.cropprice.Fragments.HomeFragment;
 import com.example.cropprice.Fragments.SearchFragment;
@@ -103,11 +102,11 @@ public class SellerHomeActivity extends AppCompatActivity {
                     case R.id.home:
                         transaction.replace(R.id.container, new HomeFragment());
                         break;
-                    case R.id.shop:
-                        transaction.replace(R.id.container, new ShopFragment());
+                    case R.id.about:
+                        startActivity(new Intent(SellerHomeActivity.this, AboutActivity.class));
                         break;
-                    case R.id.add:
-                        transaction.replace(R.id.container, new SellerAddFragment());
+                    case R.id.contact:
+                        startActivity(new Intent(SellerHomeActivity.this, ContactActivity.class));
                         break;
                     case R.id.profile:
                         transaction.replace(R.id.container, new SellerProfileFragment());
